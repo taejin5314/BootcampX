@@ -15,12 +15,12 @@ const queryString = `
     JOIN cohorts ON cohorts.id = students.cohort_id
     WHERE cohorts.name = $1
     ORDER BY teacher;
-`
+`;
 const cohortName = process.argv[2] || 'JUL02';
 
 pool.query(queryString, [cohortName])
-.then(res => {
-  res.rows.forEach(teacher => {
-    console.log(`${teacher.cohort}: ${teacher.teacher}`)
-  })
-})
+  .then(res => {
+    res.rows.forEach(teacher => {
+      console.log(`${teacher.cohort}: ${teacher.teacher}`);
+    });
+  }).catch(err => console.error('query error', err.stack));
